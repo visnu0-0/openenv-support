@@ -1,0 +1,6 @@
+{
+    "python.defaultInterpreterPath": "c:\\Users\\nathi\\OneDrive\\Desktop\\meta\\.venv\\Scripts\\python.exe",
+    "python.analysis.extraPaths": [
+        "."
+    ]
+}

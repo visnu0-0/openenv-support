@@ -24,5 +24,5 @@ COPY --chown=user . $HOME/app
 
 EXPOSE 7860
 
-# Run openenv serve to expose the environment
-CMD ["openenv", "serve", "openenv.yaml", "--host", "0.0.0.0", "--port", "7860"]
+# Run uvicorn to expose the environment
+CMD ["uvicorn", "server.app:app", "--host", "0.0.0.0", "--port", "7860"]
