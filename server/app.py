@@ -14,18 +14,26 @@ env = SupportEnv()
 def reset() -> SupportObservation:
     return env.reset()
 
-@app.post("/step")
-def step(action: SupportAction):
+from pydantic import BaseModel
+
+class StepResponse(BaseModel):
+    observation: SupportObservation
+    reward: float
+    done: bool
+    info: dict
+
+@app.post("/step", response_model=StepResponse)
+def step(action: SupportAction) -> StepResponse:
     obs, reward, done, info = env.step(action)
-    return {
-        "observation": obs,
-        "reward": reward,
-        "done": done,
-        "info": info
-    }
+    return StepResponse(
+        observation=obs,
+        reward=reward,
+        done=done,
+        info=info
+    )
 
 @app.get("/state")
-def state():
+def state() -> dict:
     return env.state()
 
 @app.get("/")
