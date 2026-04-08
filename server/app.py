@@ -5,21 +5,20 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from fastapi import FastAPI
 import uvicorn
 from support_env import SupportEnv
-from models import SupportAction
+from models import SupportAction, SupportObservation
 
 app = FastAPI(title="Support Triage OpenEnv")
 env = SupportEnv()
 
 @app.post("/reset")
-def reset():
-    obs = env.reset()
-    return obs.dict()
+def reset() -> SupportObservation:
+    return env.reset()
 
 @app.post("/step")
 def step(action: SupportAction):
     obs, reward, done, info = env.step(action)
     return {
-        "observation": obs.dict(),
+        "observation": obs,
         "reward": reward,
         "done": done,
         "info": info
