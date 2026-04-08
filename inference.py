@@ -2,12 +2,17 @@ import os
 import json
 from typing import List
 from openai import OpenAI
-from models import SupportAction, SupportObservation, SupportTask, ActionType
+from dotenv import load_dotenv
+from models import SupportAction, ActionType
 from support_env import SupportEnv
 
-API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY", "dummy")
+load_dotenv()
+
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
+HF_TOKEN = os.getenv("HF_TOKEN", "")
+LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME")
+
 TASK_NAME = os.getenv("SUPPORT_ENV_TASK", "easy_triage")
 BENCHMARK = os.getenv("SUPPORT_ENV_BENCHMARK", "support_triage")
 
@@ -69,7 +74,7 @@ def run_episode(env: SupportEnv, task_name: str, client: OpenAI) -> float:
     return total_score
 
 def main():
-    client = OpenAI(api_key=API_KEY, base_url=API_BASE_URL)
+    client = OpenAI(api_key=HF_TOKEN, base_url=API_BASE_URL)
     env = SupportEnv()
     
     # We will try all 3 tasks as a baseline check.
