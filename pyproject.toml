@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "support_triage"
+version = "1.0.0"
+description = "Customer Support Environment"
+authors = [
+    {name = "nathi"}
+]
+dependencies = [
+    "openenv-core>=0.1.0",
+    "pydantic>=2.0.0",
+    "openai>=1.0.0",
+    "uvicorn>=0.23.0"
+]
+
+[project.scripts]
+server = "server.app:main"

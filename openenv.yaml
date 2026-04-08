@@ -1,0 +1,14 @@
+name: "support_triage"
+version: "1.0.0"
+description: "A customer support environment simulating ticket triage, missing info retrieval, and multi-step full resolution."
+tasks:
+  - id: "easy_triage"
+    description: "The agent must categorize a simple technical support ticket into the correct department."
+  - id: "medium_missing_info"
+    description: "The agent must reply to the customer to ask for a missing order ID needed for a refund."
+  - id: "hard_full_resolution"
+    description: "The agent must check the order status for a provided ID, issue a refund, and reply to the customer."
+entrypoint: "support_env:SupportEnv"
+models:
+  action: "models:SupportAction"
+  observation: "models:SupportObservation"
